@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>단어 연습장</title>
-<meta name="description" content="타이핑으로 정답을 입력하는 단어 암기 연습장">
+<title>불규칙 동사 연습장</title>
+<meta name="description" content="한글 뜻을 보고 원형·과거·과거분사를 직접 타이핑하는 불규칙 동사 암기 연습장">
 <meta name="theme-color" content="#eef1f6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -79,7 +79,7 @@
     font-size:11px;letter-spacing:.14em;text-transform:uppercase;
     color:var(--ink-soft);font-weight:500;
   }
-  h1{font-family:var(--serif);font-size:clamp(26px,6vw,36px);line-height:1.25;margin:6px 0 8px;font-weight:700}
+  h1{font-family:var(--serif);font-size:clamp(24px,6vw,34px);line-height:1.25;margin:6px 0 8px;font-weight:700}
   h2{font-family:var(--serif);font-size:19px;margin:0 0 4px;font-weight:700}
   p.lede{color:var(--ink-soft);margin:0 0 26px;font-size:15px}
   .panel{
@@ -114,21 +114,35 @@
   .ticks i.now{height:14px;background:var(--pen)}
   .prompt-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
   .prompt{
-    font-family:var(--serif);font-size:clamp(34px,9vw,52px);line-height:1.2;
+    font-family:var(--serif);font-size:clamp(30px,8vw,48px);line-height:1.2;
     font-weight:700;margin:8px 0 4px;word-break:break-word;
   }
   .prompt-note{color:var(--ink-soft);font-size:14px;min-height:22px}
 
-  /* the signature: you type directly on the ruled line */
-  .line-area{position:relative;margin:38px 0 10px}
+  /* ── answer inputs ───────────────────── */
+  .form-label{
+    font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-soft);font-weight:500;display:block;margin-bottom:3px;
+  }
+  .line-area{position:relative;margin:30px 0 8px}
+  .line-area+.line-area{margin-top:20px}
   #answer{
     width:100%;background:none;border:0;border-bottom:2px solid var(--ink);
-    font-family:var(--serif);font-size:clamp(24px,6vw,32px);color:var(--ink);
+    font-family:var(--serif);font-size:clamp(22px,6vw,32px);color:var(--ink);
     padding:4px 2px 10px;border-radius:0;
   }
   #answer::placeholder{color:#b6c0d4;font-family:var(--sans);font-size:16px}
   #answer:focus{outline:none;border-bottom-color:var(--pen)}
   #answer:disabled{color:var(--ink-soft)}
+  #answer2,#answer3{
+    width:100%;background:none;border:0;border-bottom:1.5px solid var(--rule);
+    font-family:var(--serif);font-size:clamp(20px,5vw,28px);color:var(--ink);
+    padding:4px 2px 8px;border-radius:0;
+  }
+  #answer2::placeholder,#answer3::placeholder{color:#b6c0d4;font-family:var(--sans);font-size:15px}
+  #answer2:focus,#answer3:focus{outline:none;border-bottom-color:var(--pen)}
+  #answer2:disabled,#answer3:disabled{color:var(--ink-soft)}
+
   .mark{position:absolute;inset:-26px -8px 6px -8px;pointer-events:none;overflow:visible}
   .mark path{
     fill:none;stroke:var(--red);stroke-width:5;stroke-linecap:round;
@@ -139,7 +153,7 @@
   @keyframes draw{to{stroke-dashoffset:0}}
   .verdict{min-height:66px;margin-top:16px}
   .verdict .said{font-size:14px;color:var(--ink-soft)}
-  .verdict .truth{font-family:var(--serif);font-size:22px;color:var(--red);font-weight:700}
+  .verdict .truth{font-family:var(--serif);font-size:20px;color:var(--red);font-weight:700;word-break:break-all}
   .verdict .good{font-size:15px;color:var(--pen);font-weight:500}
   .keyhint{font-size:12.5px;color:var(--ink-soft);margin-top:20px}
   kbd{
@@ -150,13 +164,13 @@
   /* ── result & list ────────────────────── */
   .score{font-family:var(--serif);font-size:64px;font-weight:700;line-height:1;letter-spacing:-.02em}
   .score small{font-size:22px;color:var(--ink-soft);font-weight:400}
-  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
   th{
     text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
     color:var(--ink-soft);font-weight:500;padding:0 8px 8px 0;border-bottom:1px solid var(--rule);
   }
-  td{padding:10px 8px 10px 0;border-bottom:1px solid var(--rule);vertical-align:top}
-  td.q{font-family:var(--serif);font-size:16px;font-weight:700}
+  td{padding:9px 8px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+  td.q{font-family:var(--serif);font-size:15px;font-weight:700}
   td.wrong{color:var(--red)}
   td.num{font-variant-numeric:tabular-nums;color:var(--ink-soft);white-space:nowrap}
   .scroll{max-height:52vh;overflow:auto}
@@ -173,7 +187,7 @@
 
 <header class="masthead">
   <div class="wrap">
-    <span class="brand">단어 연습<em>.</em></span>
+    <span class="brand">불규칙 동사<em>.</em></span>
     <nav>
       <button class="ghost" id="nav-home">연습</button>
       <button class="ghost" id="nav-words">단어장</button>
@@ -186,21 +200,22 @@
 <!-- ── 시작 ─────────────────────────────── -->
 <section id="view-home" class="wrap">
   <span class="eyebrow">타이핑 연습</span>
-  <h1>정답을 직접 써야<br>비로소 외워집니다.</h1>
+  <h1>뜻을 보고 세 형태를<br>모두 써야 진짜입니다.</h1>
   <p class="lede" id="home-lede">단어를 불러오는 중…</p>
 
   <div class="panel">
     <span class="lbl" style="display:block;font-size:13px;font-weight:500;margin-bottom:6px">묻는 방향</span>
     <div class="segmented" id="dir-pick">
-      <button data-dir="b2f" aria-pressed="true">뜻 보고 단어 쓰기</button>
-      <button data-dir="f2b" aria-pressed="false">단어 보고 뜻 쓰기</button>
-      <button data-dir="mix" aria-pressed="false">섞어서</button>
+      <button data-dir="b2f3" aria-pressed="true">뜻 → 세 형태 쓰기</button>
+      <button data-dir="b2f"  aria-pressed="false">뜻 → 원형만</button>
+      <button data-dir="f2b"  aria-pressed="false">원형 → 뜻 쓰기</button>
+      <button data-dir="mix"  aria-pressed="false">섞어서</button>
     </div>
     <span class="lbl" style="display:block;font-size:13px;font-weight:500;margin:18px 0 6px">문제 수</span>
     <div class="segmented" id="size-pick">
       <button data-size="10" aria-pressed="true">10개</button>
       <button data-size="20" aria-pressed="false">20개</button>
-      <button data-size="0" aria-pressed="false">전체</button>
+      <button data-size="0"  aria-pressed="false">전체</button>
     </div>
     <p class="hint" style="font-size:12.5px;color:var(--ink-soft);margin:16px 0 0">
       자주 틀린 단어와 아직 안 풀어본 단어를 먼저 냅니다.
@@ -209,7 +224,7 @@
 
   <div class="row">
     <button class="btn" id="start">연습 시작</button>
-    <button class="btn line" id="to-words">단어 넣기</button>
+    <button class="btn line" id="to-words">단어장 보기</button>
   </div>
 </section>
 
@@ -221,19 +236,33 @@
   <div class="prompt-note" id="prompt-note"></div>
 
   <div class="line-area">
+    <span class="form-label" id="form-label1"></span>
     <input id="answer" type="text" autocomplete="off" autocapitalize="off" autocorrect="off"
-           spellcheck="false" placeholder="여기에 정답을 입력하고 Enter">
+           spellcheck="false" inputmode="latin" placeholder="여기에 입력하고 Enter">
     <svg class="mark" id="mark" viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"></svg>
+  </div>
+
+  <div class="line-area" id="line2" hidden>
+    <span class="form-label">과거 (Past Simple)</span>
+    <input id="answer2" type="text" autocomplete="off" autocapitalize="off" autocorrect="off"
+           spellcheck="false" inputmode="latin" placeholder="과거형">
+  </div>
+
+  <div class="line-area" id="line3" hidden>
+    <span class="form-label">과거분사 (Past Participle)</span>
+    <input id="answer3" type="text" autocomplete="off" autocapitalize="off" autocorrect="off"
+           spellcheck="false" inputmode="latin" placeholder="과거분사형">
   </div>
 
   <div class="verdict" id="verdict"></div>
 
-  <div class="row" style="margin-top:8px">
+  <div class="row" style="margin-top:14px">
+    <button class="btn" id="check" hidden>채점하기</button>
     <button class="btn" id="next" hidden>다음 문제</button>
     <button class="btn line" id="skip">모르겠어요</button>
-    <button class="ghost" id="quit">연습 끝내기</button>
+    <button class="ghost" id="quit">끝내기</button>
   </div>
-  <p class="keyhint"><kbd>Enter</kbd> 채점 · 다시 <kbd>Enter</kbd> 다음 문제</p>
+  <p class="keyhint"><kbd>Enter</kbd> 다음 칸·채점 &nbsp;·&nbsp; 다시 <kbd>Enter</kbd> 다음 문제</p>
 </section>
 
 <!-- ── 결과 ─────────────────────────────── -->
@@ -262,14 +291,14 @@
 <!-- ── 단어장 ───────────────────────────── -->
 <section id="view-words" class="wrap" hidden>
   <span class="eyebrow">단어장</span>
-  <h1 style="font-size:clamp(24px,5vw,30px)">단어 넣기</h1>
-  <p class="lede">한 줄에 하나씩. <strong>단어, 뜻</strong> 순서로 쉼표·탭·<code>|</code> 중 무엇으로 나눠도 됩니다.</p>
+  <h1 style="font-size:clamp(22px,5vw,28px)">100개 불규칙 동사</h1>
+  <p class="lede">words.json에서 자동으로 불러옵니다. 직접 추가할 수도 있습니다.</p>
 
   <div class="panel">
     <label class="field">
-      <span class="lbl">붙여넣기</span>
-      <textarea id="paste" placeholder="apple, 사과&#10;abandon, 버리다 / 포기하다&#10;施す, 베풀다"></textarea>
-      <span class="hint">뜻이 여러 개면 <code>/</code>로 나누세요. 그중 하나만 맞아도 정답으로 봅니다.</span>
+      <span class="lbl">직접 추가 (탭 또는 <code>|</code> 구분)</span>
+      <textarea id="paste" placeholder="write | 쓰다 | wrote | written&#10;go | 가다 | went | gone"></textarea>
+      <span class="hint">원형 | 뜻 | 과거 | 과거분사 순서. 뒤 두 칸은 비워도 됩니다.</span>
     </label>
     <div class="row">
       <button class="btn" id="add">단어장에 추가</button>
@@ -285,14 +314,14 @@
     </div>
     <div class="scroll">
       <table>
-        <thead><tr><th>단어</th><th>뜻</th><th>맞음/틀림</th><th></th></tr></thead>
+        <thead><tr><th>원형</th><th>뜻</th><th>과거</th><th>과거분사</th><th>맞/틀</th><th></th></tr></thead>
         <tbody id="deck-body"></tbody>
       </table>
-      <p class="empty" id="deck-empty" hidden>아직 단어가 없습니다. 위에 붙여넣거나 <code>words.json</code> 파일을 올려 두세요.</p>
+      <p class="empty" id="deck-empty" hidden>아직 단어가 없습니다.</p>
     </div>
     <div class="row" style="margin-top:18px">
       <button class="btn line" id="download">words.json 내려받기</button>
-      <button class="ghost" id="reload-file">words.json 다시 불러오기</button>
+      <button class="ghost" id="reload-file">다시 불러오기</button>
       <button class="ghost" id="wipe">전체 삭제</button>
     </div>
     <p class="msg" id="deck-msg"></p>
@@ -307,8 +336,8 @@
 (function(){
 "use strict";
 
-/* ── 저장소 (localStorage가 막혀 있어도 동작) ───────────── */
-var KEY="vocab.deck.v1", mem=null;
+/* ── 저장소 ──────────────────────────────────────────── */
+var KEY="vocab.irr.v1", mem=null;
 function load(){
   try{ var raw=localStorage.getItem(KEY); if(raw) return JSON.parse(raw); }catch(e){}
   return mem;
@@ -318,8 +347,8 @@ function save(){
   try{ localStorage.setItem(KEY,JSON.stringify(deck)); }catch(e){}
 }
 
-var deck=[];          // [{f:단어, b:뜻, ok:n, bad:n}]
-var opt={dir:"b2f", size:10};
+var deck=[];   // [{f, b, v2, v3, ok, bad}]
+var opt={dir:"b2f3", size:10};
 var ses=null;
 var $=function(id){return document.getElementById(id)};
 
@@ -335,9 +364,9 @@ function variants(txt){
     var t=norm(part);
     if(!t) return;
     out.push(t);
-    var bare=norm(part.replace(/[（(\[][^）)\]]*[）)\]]/g,""));   // 괄호 설명 없이도 정답
+    var bare=norm(part.replace(/[（(\[][^）)\]]*[）)\]]/g,""));
     if(bare && out.indexOf(bare)<0) out.push(bare);
-    var tight=t.replace(/\s/g,"");                              // 띄어쓰기 무시
+    var tight=t.replace(/\s/g,"");
     if(tight && out.indexOf(tight)<0) out.push(tight);
   });
   return out;
@@ -352,15 +381,19 @@ function parse(text){
   var rows=[];
   String(text).split(/\r?\n/).forEach(function(line){
     if(!line.trim() || /^(#|\/\/)/.test(line.trim())) return;
-    var f,b,i;
-    if(line.indexOf("\t")>=0){ i=line.indexOf("\t"); }
-    else if(line.indexOf("|")>=0){ i=line.indexOf("|"); }
-    else if(line.indexOf(",")>=0){ i=line.indexOf(","); }
-    else if(line.indexOf("=")>=0){ i=line.indexOf("="); }
-    else return;
-    f=line.slice(0,i).trim();
-    b=line.slice(i+1).replace(/^[\t|,=]+/,"").trim();
-    if(f && b) rows.push({f:f,b:b});
+    var f,b,v2="",v3="",parts;
+    if(line.indexOf("\t")>=0){
+      parts=line.split("\t").map(function(s){return s.trim()});
+      f=parts[0]; b=parts[1]||""; v2=parts[2]||""; v3=parts[3]||"";
+    } else if(line.indexOf("|")>=0){
+      parts=line.split("|").map(function(s){return s.trim()});
+      f=parts[0]; b=parts[1]||""; v2=parts[2]||""; v3=parts[3]||"";
+    } else if(line.indexOf(",")>=0){
+      var i=line.indexOf(",");
+      f=line.slice(0,i).trim();
+      b=line.slice(i+1).trim();
+    } else return;
+    if(f && b) rows.push({f:f,b:b,v2:v2,v3:v3});
   });
   return rows;
 }
@@ -370,7 +403,7 @@ function merge(rows){
   rows.forEach(function(r){
     var k=r.f+"→"+r.b;
     if(seen[k]) return;
-    var c={f:r.f,b:r.b,ok:0,bad:0};
+    var c={f:r.f,b:r.b,v2:r.v2||"",v3:r.v3||"",ok:0,bad:0};
     seen[k]=c; deck.push(c); added++;
   });
   save();
@@ -386,11 +419,14 @@ function fromFile(cb){
     var list=Array.isArray(data)?data:(data.words||[]);
     var rows=[];
     list.forEach(function(it){
-      if(Array.isArray(it)){ if(it[0]&&it[1]) rows.push({f:String(it[0]),b:String(it[1])}); }
-      else if(it && typeof it==="object"){
+      if(Array.isArray(it)){
+        if(it[0]&&it[1]) rows.push({f:String(it[0]),b:String(it[1]),v2:it[2]?String(it[2]):"",v3:it[3]?String(it[3]):""});
+      } else if(it && typeof it==="object"){
         var f=it.f||it.word||it.front||it.term||it.단어;
         var b=it.b||it.meaning||it.back||it.def||it.뜻;
-        if(f&&b) rows.push({f:String(f),b:String(b)});
+        var v2=it.v2||it.past||"";
+        var v3=it.v3||it.participle||"";
+        if(f&&b) rows.push({f:String(f),b:String(b),v2:String(v2),v3:String(v3)});
       }
     });
     cb(rows);
@@ -400,7 +436,7 @@ function fromFile(cb){
 /* ── 화면 전환 ───────────────────────────────────────── */
 var views=["home","drill","result","words"];
 function show(name){
-  views.forEach(function(v){ $("view-"+v).hidden = (v!==name); });
+  views.forEach(function(v){ $("view-"+v).hidden=(v!==name); });
   $("nav-home").setAttribute("aria-current", name==="words"?"false":"page");
   $("nav-words").setAttribute("aria-current", name==="words"?"page":"false");
   if(name==="words") renderDeck();
@@ -411,15 +447,15 @@ function renderHome(){
   var n=deck.length;
   var never=deck.filter(function(c){return !c.ok&&!c.bad}).length;
   $("home-lede").textContent = n
-    ? "단어 "+n+"개 · 아직 안 풀어본 단어 "+never+"개"
-    : "단어장이 비어 있습니다. 먼저 단어를 넣어 주세요.";
+    ? "동사 "+n+"개 · 아직 안 풀어본 단어 "+never+"개"
+    : "단어장이 비어 있습니다. 단어를 불러오는 중…";
   $("start").disabled = n===0;
 }
 
 /* ── 문제 뽑기 ───────────────────────────────────────── */
 function pick(pool,size){
   var list=pool.slice();
-  list.forEach(function(c){ c._w = c.bad*3 - c.ok + (c.ok+c.bad?0:2) + Math.random()*1.5; });
+  list.forEach(function(c){ c._w=c.bad*3-c.ok+(c.ok+c.bad?0:2)+Math.random()*1.5; });
   list.sort(function(a,b){ return b._w-a._w; });
   if(size>0) list=list.slice(0,size);
   for(var i=list.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=list[i];list[i]=list[j];list[j]=t; }
@@ -427,10 +463,14 @@ function pick(pool,size){
 }
 function startSession(cards){
   if(!cards.length) return;
-  ses={items:cards.map(function(c){
-        var d = opt.dir==="mix" ? (Math.random()<.5?"f2b":"b2f") : opt.dir;
-        return {card:c,dir:d,said:"",right:null};
-      }), i:0, graded:false};
+  ses={
+    items:cards.map(function(c){
+      var d=opt.dir==="mix"?(Math.random()<.5?"f2b":"b2f3"):opt.dir;
+      if(d==="b2f3" && !c.v2) d="b2f";
+      return {card:c,dir:d,said:"",right:null};
+    }),
+    i:0, graded:false
+  };
   drawTicks();
   show("drill");
   askCurrent();
@@ -443,23 +483,35 @@ function drawTicks(){
 function updateTicks(){
   var t=$("ticks").children;
   ses.items.forEach(function(it,k){
-    t[k].className = it.right===true?"ok" : it.right===false?"bad" : (k===ses.i?"now":"");
+    t[k].className=it.right===true?"ok":it.right===false?"bad":(k===ses.i?"now":"");
   });
 }
 function cur(){ return ses.items[ses.i]; }
-function askText(it){ return it.dir==="b2f" ? it.card.b : it.card.f; }
-function ansText(it){ return it.dir==="b2f" ? it.card.f : it.card.b; }
+function askText(it){ return (it.dir==="b2f"||it.dir==="b2f3")?it.card.b:it.card.f; }
+function ansText(it){ return (it.dir==="b2f"||it.dir==="b2f3")?it.card.f:it.card.b; }
 
 function askCurrent(){
   var it=cur();
-  $("ask-label").textContent = it.dir==="b2f" ? "뜻" : "단어";
-  $("prompt").textContent = askText(it);
-  $("prompt-note").textContent = it.dir==="b2f" ? "→ 단어를 쓰세요" : "→ 뜻을 쓰세요";
+  var is3=(it.dir==="b2f3");
+  $("ask-label").textContent=(it.dir==="f2b")?"원형":"뜻";
+  $("form-label1").textContent=is3?"원형 (Base Form)":"";
+  $("prompt").textContent=askText(it);
+  $("prompt-note").textContent=is3?"→ 원형 · 과거 · 과거분사를 모두 쓰세요":
+    it.dir==="b2f"?"→ 원형을 쓰세요":"→ 뜻을 쓰세요";
+  $("line2").hidden=!is3;
+  $("line3").hidden=!is3;
   var inp=$("answer");
-  inp.value=""; inp.disabled=false; inp.placeholder="여기에 정답을 입력하고 Enter";
+  inp.value=""; inp.disabled=false;
+  inp.placeholder=is3?"원형 (base form)":"여기에 입력하고 Enter";
+  if(is3){
+    $("answer2").value=""; $("answer2").disabled=false;
+    $("answer3").value=""; $("answer3").disabled=false;
+  }
   $("verdict").innerHTML="";
   $("mark").classList.remove("show"); $("mark").innerHTML="";
-  $("next").hidden=true; $("skip").hidden=false;
+  $("check").hidden=!is3;
+  $("next").hidden=true;
+  $("skip").hidden=false;
   ses.graded=false;
   updateTicks();
   inp.focus();
@@ -472,17 +524,35 @@ function markNO(){
   $("mark").innerHTML='<path d="M212 4 L104 96"/><path d="M244 6 L188 60"/>';
   $("mark").classList.add("show");
 }
+
 function grade(skipped){
   if(ses.graded) return;
   var it=cur(), inp=$("answer");
+  var is3=(it.dir==="b2f3");
   var said=inp.value.trim();
-  var right = !skipped && matches(said,ansText(it));
-  it.said=said; it.right=right;
+  var right;
+
+  if(is3){
+    var said2=$("answer2").value.trim();
+    var said3=$("answer3").value.trim();
+    var r1=!skipped && matches(said, it.card.f);
+    var r2=!skipped && matches(said2, it.card.v2||"");
+    var r3=!skipped && matches(said3, it.card.v3||"");
+    right=r1&&r2&&r3;
+    it.said=said+" / "+said2+" / "+said3;
+  } else {
+    right=!skipped && matches(said, ansText(it));
+    it.said=said;
+  }
+
+  it.right=right;
   if(right){ it.card.ok++; markOK(); }
   else{ it.card.bad++; markNO(); }
   save();
   ses.graded=true;
   inp.disabled=true;
+  if(is3){ $("answer2").disabled=true; $("answer3").disabled=true; }
+  $("check").hidden=true;
   $("skip").hidden=true;
   updateTicks();
 
@@ -490,15 +560,20 @@ function grade(skipped){
   if(right){
     v.innerHTML='<div class="good">맞았습니다.</div>';
     setTimeout(function(){ if(ses&&ses.graded) advance(); }, 620);
-  }else{
-    v.innerHTML='<div class="said">'+(said?"내가 쓴 답: "+esc(said):"답을 쓰지 않았습니다")+'</div>'+
-                '<div class="truth">'+esc(ansText(it))+'</div>';
+  } else {
+    var correctAns=is3
+      ? it.card.f+" / "+it.card.v2+" / "+it.card.v3
+      : ansText(it);
+    var saidLabel=it.said?("내가 쓴 답: "+esc(it.said)):"답을 쓰지 않았습니다";
+    v.innerHTML='<div class="said">'+saidLabel+'</div>'+
+                '<div class="truth">'+esc(correctAns)+'</div>';
     $("next").hidden=false;
     $("next").focus();
   }
 }
+
 function advance(){
-  if(ses.i < ses.items.length-1){ ses.i++; askCurrent(); }
+  if(ses.i<ses.items.length-1){ ses.i++; askCurrent(); }
   else finish();
 }
 function finish(){
@@ -506,18 +581,21 @@ function finish(){
   var ok=items.filter(function(x){return x.right===true}).length;
   $("score").innerHTML=ok+' <small>/ '+items.length+'</small>';
   var pct=Math.round(ok/items.length*100);
-  $("result-lede").textContent = pct===100 ? "전부 맞았습니다."
-    : pct>=70 ? "정답률 "+pct+"%. 틀린 것만 한 번 더 하면 좋습니다."
-    : "정답률 "+pct+"%. 틀린 단어를 바로 다시 풀어 보세요.";
+  $("result-lede").textContent=pct===100?"전부 맞았습니다.":
+    pct>=70?"정답률 "+pct+"%. 틀린 것만 한 번 더 하면 좋습니다.":
+    "정답률 "+pct+"%. 틀린 단어를 바로 다시 풀어 보세요.";
   var wrong=items.filter(function(x){return x.right===false});
-  $("wrong-panel").hidden = wrong.length===0;
-  $("retry-wrong").hidden = wrong.length===0;
+  $("wrong-panel").hidden=wrong.length===0;
+  $("retry-wrong").hidden=wrong.length===0;
   var tb=$("wrong-body"); tb.innerHTML="";
   wrong.forEach(function(x){
+    var correctAns=x.dir==="b2f3"
+      ? x.card.f+" / "+x.card.v2+" / "+x.card.v3
+      : ansText(x);
     var tr=document.createElement("tr");
     tr.innerHTML='<td class="q">'+esc(askText(x))+'</td>'+
                  '<td class="wrong">'+(x.said?esc(x.said):"—")+'</td>'+
-                 '<td>'+esc(ansText(x))+'</td>';
+                 '<td>'+esc(correctAns)+'</td>';
     tb.appendChild(tr);
   });
   ses.wrongCards=wrong.map(function(x){return x.card});
@@ -532,14 +610,16 @@ function esc(s){
 /* ── 단어장 화면 ─────────────────────────────────────── */
 function renderDeck(){
   var tb=$("deck-body"); tb.innerHTML="";
-  $("deck-count").textContent = deck.length ? deck.length+"개" : "";
-  $("deck-empty").hidden = deck.length>0;
+  $("deck-count").textContent=deck.length?deck.length+"개":"";
+  $("deck-empty").hidden=deck.length>0;
   deck.slice().reverse().forEach(function(c){
     var tr=document.createElement("tr");
     var td1=document.createElement("td"); td1.className="q"; td1.textContent=c.f;
     var td2=document.createElement("td"); td2.textContent=c.b;
-    var td3=document.createElement("td"); td3.className="num"; td3.textContent=c.ok+" / "+c.bad;
-    var td4=document.createElement("td");
+    var td3=document.createElement("td"); td3.textContent=c.v2||"";
+    var td4=document.createElement("td"); td4.textContent=c.v3||"";
+    var td5=document.createElement("td"); td5.className="num"; td5.textContent=c.ok+" / "+c.bad;
+    var td6=document.createElement("td");
     var b=document.createElement("button");
     b.className="del"; b.type="button"; b.textContent="×";
     b.setAttribute("aria-label",c.f+" 삭제");
@@ -547,8 +627,8 @@ function renderDeck(){
       var k=deck.indexOf(c); if(k>=0) deck.splice(k,1);
       save(); renderDeck();
     };
-    td4.appendChild(b);
-    tr.appendChild(td1);tr.appendChild(td2);tr.appendChild(td3);tr.appendChild(td4);
+    td6.appendChild(b);
+    tr.appendChild(td1);tr.appendChild(td2);tr.appendChild(td3);tr.appendChild(td4);tr.appendChild(td5);tr.appendChild(td6);
     tb.appendChild(tr);
   });
 }
@@ -568,19 +648,33 @@ $("quit").onclick=function(){ ses=null; show("home") };
 $("dir-pick").onclick=function(e){
   var b=e.target.closest("button[data-dir]"); if(!b) return;
   opt.dir=b.dataset.dir;
-  [].forEach.call(this.children,function(x){ x.setAttribute("aria-pressed", String(x===b)) });
+  [].forEach.call(this.children,function(x){ x.setAttribute("aria-pressed",String(x===b)) });
 };
 $("size-pick").onclick=function(e){
   var b=e.target.closest("button[data-size]"); if(!b) return;
   opt.size=parseInt(b.dataset.size,10);
-  [].forEach.call(this.children,function(x){ x.setAttribute("aria-pressed", String(x===b)) });
+  [].forEach.call(this.children,function(x){ x.setAttribute("aria-pressed",String(x===b)) });
 };
 $("start").onclick=function(){ startSession(pick(deck,opt.size)) };
 $("retry-wrong").onclick=function(){ startSession(pick(ses.wrongCards,0)) };
 $("skip").onclick=function(){ grade(true) };
 $("next").onclick=function(){ advance() };
+$("check").onclick=function(){ grade(false) };
 
+/* Enter 키 흐름: answer → answer2 → answer3 → grade */
 $("answer").addEventListener("keydown",function(e){
+  if(e.key!=="Enter") return;
+  e.preventDefault();
+  if(ses.graded) return;
+  if(cur().dir==="b2f3"){ $("answer2").focus(); return; }
+  grade(false);
+});
+$("answer2").addEventListener("keydown",function(e){
+  if(e.key!=="Enter") return;
+  e.preventDefault();
+  if(!ses.graded){ $("answer3").focus(); }
+});
+$("answer3").addEventListener("keydown",function(e){
   if(e.key!=="Enter") return;
   e.preventDefault();
   if(!ses.graded) grade(false);
@@ -594,9 +688,9 @@ document.addEventListener("keydown",function(e){
 
 $("add").onclick=function(){
   var rows=parse($("paste").value);
-  if(!rows.length){ say("paste-msg","읽을 수 있는 줄이 없습니다. '단어, 뜻' 형식인지 확인해 주세요.",true); return; }
+  if(!rows.length){ say("paste-msg","읽을 수 있는 줄이 없습니다.",true); return; }
   var n=merge(rows);
-  say("paste-msg", n ? n+"개를 추가했습니다."+(rows.length-n?" ("+(rows.length-n)+"개는 이미 있음)":"") : "모두 이미 단어장에 있습니다.");
+  say("paste-msg",n?n+"개를 추가했습니다."+(rows.length-n?" ("+(rows.length-n)+"개는 이미 있음)":""):"모두 이미 단어장에 있습니다.");
   $("paste").value="";
   renderDeck();
 };
@@ -605,7 +699,7 @@ $("replace").onclick=function(){
   if(!rows.length){ say("paste-msg","읽을 수 있는 줄이 없습니다.",true); return; }
   if(!confirm("단어장을 비우고 "+rows.length+"개로 새로 채웁니다. 계속할까요?")) return;
   deck=[]; merge(rows);
-  say("paste-msg", deck.length+"개로 새로 채웠습니다.");
+  say("paste-msg",deck.length+"개로 새로 채웠습니다.");
   $("paste").value="";
   renderDeck();
 };
@@ -615,7 +709,12 @@ $("wipe").onclick=function(){
   deck=[]; save(); renderDeck(); say("deck-msg","단어장을 비웠습니다.");
 };
 $("download").onclick=function(){
-  var out=deck.map(function(c){ return {f:c.f,b:c.b}; });
+  var out=deck.map(function(c){
+    var o={f:c.f,b:c.b};
+    if(c.v2) o.v2=c.v2;
+    if(c.v3) o.v3=c.v3;
+    return o;
+  });
   var blob=new Blob([JSON.stringify(out,null,2)],{type:"application/json"});
   var a=document.createElement("a");
   a.href=URL.createObjectURL(blob); a.download="words.json";
@@ -626,9 +725,9 @@ $("download").onclick=function(){
 $("reload-file").onclick=function(){
   say("deck-msg","words.json을 읽는 중…");
   fromFile(function(rows){
-    if(!rows){ say("deck-msg","words.json을 찾지 못했습니다. 저장소 안에 파일이 있는지 확인해 주세요.",true); return; }
+    if(!rows){ say("deck-msg","words.json을 찾지 못했습니다.",true); return; }
     var n=merge(rows);
-    say("deck-msg", n ? "파일에서 "+n+"개를 추가했습니다." : "파일의 단어가 이미 모두 들어 있습니다.");
+    say("deck-msg",n?"파일에서 "+n+"개를 추가했습니다.":"파일의 단어가 이미 모두 들어 있습니다.");
     renderDeck();
   });
 };
@@ -636,9 +735,9 @@ $("reload-file").onclick=function(){
 /* ── 시작 ────────────────────────────────────────────── */
 var saved=load();
 if(saved && saved.length){
-  deck=saved.map(function(c){ return {f:c.f,b:c.b,ok:c.ok||0,bad:c.bad||0}; });
+  deck=saved.map(function(c){ return {f:c.f,b:c.b,v2:c.v2||"",v3:c.v3||"",ok:c.ok||0,bad:c.bad||0}; });
   show("home");
-}else{
+} else {
   show("home");
   fromFile(function(rows){
     if(rows && rows.length){ merge(rows); }
