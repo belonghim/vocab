@@ -313,6 +313,7 @@ function save(){
 var deck=[];
 var opt={dir:"b2f-all", size:10};
 var ses=null;
+var justGraded=false;
 var $=function(id){return document.getElementById(id)};
 
 function norm(s){
@@ -520,6 +521,8 @@ function grade(skipped){
   else{ it.card.bad++; markNO(); }
   save();
   ses.graded=true;
+  justGraded=true;
+  setTimeout(function(){ justGraded=false; }, 0);
   inp.disabled=true;
   $("skip").hidden=true;
   updateTicks();
@@ -527,7 +530,7 @@ function grade(skipped){
   var v=$("verdict");
   if(right){
     v.innerHTML='<div class="good">맞았습니다.</div>';
-    setTimeout(function(){ if(ses&&ses.graded) advance(); }, 620);
+    setTimeout(function(){ if(ses&&ses.graded) advance(); }, 1000);
   } else {
     var saidLabel=it.said?("내가 쓴 답: "+esc(it.said)):"답을 쓰지 않았습니다";
     v.innerHTML='<div class="said">'+saidLabel+'</div>'+
@@ -621,12 +624,12 @@ $("next").onclick=function(){ advance() };
 $("answer").addEventListener("keydown",function(e){
   if(e.key!=="Enter") return;
   e.preventDefault();
-  if(ses.graded){ advance(); return; }
+  if(ses.graded) return;
   grade(false);
 });
 document.addEventListener("keydown",function(e){
   if($("view-drill").hidden) return;
-  if(e.key==="Enter" && ses && ses.graded && document.activeElement!==$("next")){
+  if(e.key==="Enter" && ses && ses.graded && !justGraded && document.activeElement!==$("next")){
     e.preventDefault(); advance();
   }
 });
