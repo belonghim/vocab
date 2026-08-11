@@ -350,6 +350,7 @@ function save(){
 var deck=[];   // [{f, b, v2, v3, ok, bad}]
 var opt={dir:"b2f3", size:10};
 var ses=null;
+var justGraded=false;
 var $=function(id){return document.getElementById(id)};
 
 /* ── 문자열 처리 ─────────────────────────────────────── */
@@ -550,6 +551,8 @@ function grade(skipped){
   else{ it.card.bad++; markNO(); }
   save();
   ses.graded=true;
+  justGraded=true;
+  setTimeout(function(){ justGraded=false; }, 0);
   inp.disabled=true;
   if(is3){ $("answer2").disabled=true; $("answer3").disabled=true; }
   $("check").hidden=true;
@@ -681,7 +684,7 @@ $("answer3").addEventListener("keydown",function(e){
 });
 document.addEventListener("keydown",function(e){
   if($("view-drill").hidden) return;
-  if(e.key==="Enter" && ses && ses.graded && document.activeElement!==$("next")){
+  if(e.key==="Enter" && ses && ses.graded && !justGraded && document.activeElement!==$("next")){
     e.preventDefault(); advance();
   }
 });
